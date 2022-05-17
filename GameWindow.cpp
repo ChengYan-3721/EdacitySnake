@@ -142,31 +142,32 @@ void GameWindow::move_body() {
 
 void GameWindow::keyPressEvent(QKeyEvent *event) {
     //控制按键频率
-    static QDateTime clickLastTime;
-    QDateTime curDataTime = QDateTime::currentDateTime();
-    if(clickLastTime.addMSecs(1000 / (ui->speed->value() * 5) - 20) > curDataTime) return;
-    clickLastTime = curDataTime;
+//    static QDateTime clickLastTime;
+//    QDateTime curDataTime = QDateTime::currentDateTime();
+//    if(clickLastTime.addMSecs(1000 / (ui->speed->value() * 5) - 20) > curDataTime) return;
+//    clickLastTime = curDataTime;
     switch (event->key()) {
         case Qt::Key_W:
         case Qt::Key_Up:
-            if (orien != Down && !state) orien = Up;
+            if (orien != Down && !state) move_up();
             break;
         case Qt::Key_S:
         case Qt::Key_Down:
-            if (orien != Up && !state) orien = Down;
+            if (orien != Up && !state) move_down();
             break;
         case Qt::Key_A:
         case Qt::Key_Left:
-            if (orien != Right && !state) orien = Left;
+            if (orien != Right && !state) move_left();
             break;
         case Qt::Key_D:
         case Qt::Key_Right:
-            if (orien != Left && !state) orien = Right;
+            if (orien != Left && !state) move_right();
             break;
         case Qt::Key_Space:
             game_pause();
             break;
     }
+    crash_monitor();
 }
 
 void GameWindow::resizeEvent(QResizeEvent *) {
